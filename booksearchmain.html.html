@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</head>
+<style>
+.bg-container {
+    background-image: url("https://assets.ccbp.in/frontend/dynamic-webapps/library-management-bg.png");
+    background-size: cover;
+    height: 50vh;
+    width: 100%;
+    text-align: center;
+}
+
+.main-heading {
+    color: white;
+    text-align: center;
+    font-size: 40px;
+    font-family: "Roboto";
+}
+</style>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="p-4 col-12 bg-container">
+                <h1 class="main-heading">library</h1>
+                <input id="searchInput" type="search" placeholder="Type book title" class="w-90 mb-3" />
+            </div>
+            <div class="col-12">
+                <div class="mt-3 text-center">
+                    <div id="spinner" class="d-none spinner-border text-dark" role="status">
+                        <span class="sr-only">loading...</span>
+                    </div>
+                    <p id="message"></p>
+                </div>
+            </div>
+            <div id="searchResults" class="col-12">
+
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+let searchInputEle = document.getElementById("searchInput");
+let searchResultsEle = document.getElementById("searchResults");
+let messageEle = document.getElementById("message");
+let spinnerEle = document.getElementById("spinner");
+let headingEle = document.createElement("h1"); // Create the heading element
+
+function createAndAppendSearchResults(search_results) {
+    searchResultsEle.innerHTML = ""; // Clear previous search results
+    if (search_results.length < 1) {
+        messageEle.textContent = "No results";
+    } else {
+        messageEle.textContent = ""; // Clear any previous messages
+        headingEle.textContent = "Popular Books"; // Set heading text
+        searchResultsEle.appendChild(headingEle); // Append heading element
+        for (let eachItem of search_results) {
+            let title = eachItem.title;
+            let image = eachItem.imageLink;
+            let author = eachItem.author;
+            let imageEle = document.createElement("img");
+            imageEle.setAttribute("src", image);
+            let textEle = document.createElement("p");
+            textEle.textContent = author;
+            searchResultsEle.appendChild(imageEle);
+            searchResultsEle.appendChild(textEle);
+            console.log(eachItem);
+        }
+    }
+</script>
+
+</html>
